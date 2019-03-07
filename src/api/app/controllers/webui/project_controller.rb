@@ -61,6 +61,21 @@ class Webui::ProjectController < Webui::WebuiController
     end
   end
 
+  def remove_role
+    authorize @project, :update?
+    super
+  end
+
+  def save_group
+    authorize @project, :update?
+    super
+  end
+
+  def save_person
+    authorize @project, :update?
+    super
+  end
+
   def autocomplete_projects
     render json: Project.autocomplete(params[:term]).not_maintenance_incident.pluck(:name)
   end
