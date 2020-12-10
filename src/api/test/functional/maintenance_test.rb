@@ -1471,7 +1471,12 @@ class MaintenanceTests < ActionDispatch::IntegrationTest
     run_scheduler('i586')
     run_scheduler('x86_64')
     run_publisher
-    # published binaries from incident got removed?
+    # Check that the cleanup job is enqueued
+    assert_enqueued_jobs(1, only: PublishedRepositoriesCleanupJob)
+    # Force to perform the job
+    perform_enqueued_jobs
+    run_publisher
+    # Check that the job removed the published binaries
     get "/published/#{incident_project}/BaseDistro3/i586/package-1.0-1.i586.rpm"
     assert_response 404
     get "/published/#{incident_project}/BaseDistro2.0_LinkedUpdateProject/x86_64/package-1.0-1.x86_64.rpm"
