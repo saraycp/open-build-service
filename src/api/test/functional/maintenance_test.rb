@@ -8,6 +8,8 @@ require 'source_controller'
 class MaintenanceTests < ActionDispatch::IntegrationTest
   fixtures :all
 
+  include ActiveJob::TestHelper
+
   def setup
     Backend::Test.start(wait_for_scheduler: true)
     stub_request(:post, 'http://bugzilla.novell.com/xmlrpc.cgi').to_timeout
