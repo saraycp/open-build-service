@@ -1,0 +1,14 @@
+type: array
+items:
+  type: object
+  properties:
+    project:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'home:Admin'
+          xml:
+            attribute: true
+xml:
+  name: watchlist

@@ -1,0 +1,24 @@
+type: object
+properties:
+  login:
+    type: string
+    example: user_1
+  email:
+    type: string
+    example: unconfigured@openbuildservice.org
+  realname:
+    type: string
+    example: User1
+  state:
+    type: string
+    example: confirmed
+  globalrole:
+    type: string
+    example: Admin
+  ignore_auth_services:
+    type: boolean
+    example: false
+  watchlist:
+    $ref: 'watchlist.yaml'
+xml:
+  name: person
