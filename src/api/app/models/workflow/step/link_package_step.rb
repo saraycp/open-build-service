@@ -31,8 +31,20 @@ class Workflow::Step::LinkPackageStep < ::Workflow::Step
     Package.find_by_project_and_name(source_project_name, source_package_name)
   end
 
+  def special_package_file_content
+    <<~XML
+      <services>
+        <service name="format_spec_file" mode="localonly"/>
+      </services>
+    XML
+  end
+
   def create_project_and_package
     check_source_access
+
+    if target_package.present?
+      raise Workflow::Step::Errors::DuplicatePackageError.new(target_project_name, target_package_name), "Can not link package. The package #{target_package_name} already exists."
+    end
 
     if target_project.nil?
       project = Project.create!(name: target_project_name)
@@ -41,11 +53,13 @@ class Workflow::Step::LinkPackageStep < ::Workflow::Step
       project.store
     end
 
-    if target_package.present?
-      raise Workflow::Step::Errors::DuplicatePackageError.new(target_project_name, target_package_name), "Can not link package. The package #{target_package_name} already exists."
-    end
-
     target_project.packages.create(name: target_package_name)
+
+    # NOTE: the next lines are a temporary fix the allow the service to run in a linked package. A project service is needed.
+    return if Package.find_by_project_and_name(target_project, '_project')
+
+    special_package = target_project.packages.create(name: '_project')
+    special_package.save_file({ file: special_package_file_content, filename: '_service' })
   end
 
   def find_or_create_linked_package

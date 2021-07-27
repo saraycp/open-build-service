@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Workflow::Step::LinkPackageStep, vcr: true do
   let!(:user) { create(:confirmed_user, :with_home, login: 'Iggy') }
   let(:token) { create(:workflow_token, user: user) }
+  let(:target_project_name) { "home:#{user.login}:#{project.name}:PR-1" }
 
   subject do
     described_class.new(step_instructions: step_instructions,
@@ -84,17 +85,17 @@ RSpec.describe Workflow::Step::LinkPackageStep, vcr: true do
       }
     end
 
-    let(:target_project_name) { "home:#{user.login}:#{project.name}:PR-1" }
-
     it { expect { subject.call }.to(change(Project, :count).by(1)) }
-    it { expect { subject.call }.to(change(Package, :count).by(1)) }
+    it { expect { subject.call }.to(change(Package, :count).by(2)) }
     it { expect(subject.call.project.name).to eq(target_project_name) }
-    it { expect { subject.call.source_file('_branch_request') }.not_to raise_error }
-    it { expect(subject.call.source_file('_branch_request')).to include('123') }
     it { expect { subject.call }.to(change(EventSubscription.where(eventtype: 'Event::BuildFail'), :count).by(1)) }
     it { expect { subject.call }.to(change(EventSubscription.where(eventtype: 'Event::BuildSuccess'), :count).by(1)) }
+    it { expect { subject.call.source_file('_branch_request') }.not_to raise_error }
+    it { expect(subject.call.source_file('_branch_request')).to include('123') }
     it { expect { subject.call.source_file('_link') }.not_to raise_error }
     it { expect(subject.call.source_file('_link')).to eq('<link project="foo_project" package="bar_package"/>') }
+    it { expect(subject.call.project.packages.map(&:name)).to include('_project') }
+    it { expect { subject.call.project.packages.find_by(name: '_project').source_file('_service') }.not_to raise_error }
   end
 
   RSpec.shared_context 'successful update event when the linked_package already exists' do
@@ -106,7 +107,7 @@ RSpec.describe Workflow::Step::LinkPackageStep, vcr: true do
     end
 
     # Emulate the linked project/package and the subcription created in a previous new PR/MR event
-    let!(:linked_project) { create(:project, name: "home:#{user.login}:#{package.project.name}:PR-1", maintainer: user) }
+    let!(:linked_project) { create(:project, name: target_project_name, maintainer: user) }
     let!(:linked_package) { create(:package_with_file, name: package.name, project: linked_project) }
 
     ['Event::BuildFail', 'Event::BuildSuccess'].each do |build_event|
@@ -148,7 +149,7 @@ RSpec.describe Workflow::Step::LinkPackageStep, vcr: true do
       }
     end
 
-    it { expect { subject.call }.to(change(Package, :count).by(1)) }
+    it { expect { subject.call }.to(change(Package, :count).by(2)) }
     it { expect { subject.call }.to(change(EventSubscription, :count).from(0).to(2)) }
   end
 
