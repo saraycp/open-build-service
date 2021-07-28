@@ -21,6 +21,10 @@ class Workflow::Step::LinkPackageStep < ::Workflow::Step
     linked_package
   end
 
+  def source_package_name
+    step_instructions['source_package']
+  end
+
   private
 
   def target_project

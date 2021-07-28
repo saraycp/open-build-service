@@ -23,6 +23,10 @@ class Workflow::Step::BranchPackageStep < ::Workflow::Step
     branched_package
   end
 
+  def source_package_name
+    step_instructions['source_package']
+  end
+
   private
 
   def find_or_create_branched_package

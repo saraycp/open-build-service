@@ -26,9 +26,9 @@ class Workflow::Step
     "home:#{@token.user.login}:#{source_project_name}:PR-#{scm_extractor_payload[:pr_number]}"
   end
 
-  def source_package_name
-    step_instructions['source_package']
-  end
+  # def source_package_name
+  #   step_instructions['source_package']
+  # end
 
   def target_package_name
     return step_instructions['target_package'] if step_instructions['target_package'].present?
