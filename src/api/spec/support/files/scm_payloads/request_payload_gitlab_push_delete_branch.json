@@ -1,0 +1,48 @@
+{
+  "object_kind": "push",
+  "event_name": "push",
+  "before": "d8964263418b3946a6d540a50d09c89c6e13e82d",
+  "after": "0000000000000000000000000000000000000000",
+  "ref": "refs/heads/branch_01",
+  "checkout_sha": null,
+  "message": null,
+  "user_id": 5428336,
+  "user_name": "Iggy",
+  "user_username": "iggy",
+  "user_email": "",
+  "user_avatar": "https://secure.gravatar.com/avatar/54c27fcc864108f5b414a033514561be?s=80&d=identicon",
+  "project_id": 43515080,
+  "project": {
+    "id": 43515080,
+    "name": "gl-test",
+    "description": null,
+    "web_url": "https://gitlab.com/iggy/gl-test",
+    "avatar_url": null,
+    "git_ssh_url": "git@gitlab.com:iggy/gl-test.git",
+    "git_http_url": "https://gitlab.com/iggy/gl-test.git",
+    "namespace": "Iggy",
+    "visibility_level": 20,
+    "path_with_namespace": "iggy/gl-test",
+    "default_branch": "main",
+    "ci_config_path": "",
+    "homepage": "https://gitlab.com/iggy/gl-test",
+    "url": "git@gitlab.com:iggy/gl-test.git",
+    "ssh_url": "git@gitlab.com:iggy/gl-test.git",
+    "http_url": "https://gitlab.com/iggy/gl-test.git"
+  },
+  "commits": [
+
+  ],
+  "total_commits_count": 0,
+  "push_options": {
+  },
+  "repository": {
+    "name": "gl-test",
+    "url": "git@gitlab.com:iggy/gl-test.git",
+    "description": null,
+    "homepage": "https://gitlab.com/iggy/gl-test",
+    "git_http_url": "https://gitlab.com/iggy/gl-test.git",
+    "git_ssh_url": "git@gitlab.com:iggy/gl-test.git",
+    "visibility_level": 20
+  }
+}

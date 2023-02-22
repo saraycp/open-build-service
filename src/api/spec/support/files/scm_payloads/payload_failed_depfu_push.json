@@ -1,0 +1,96 @@
+{
+  "ref": "refs/heads/depfu/update/srcapi/mail-2.8.0.1",
+  "before": "125534ee789da8bc431c5eaec7a58a1a9b8c410f",
+  "after": "0000000000000000000000000000000000000000",
+  "repository": {
+    "full_name": "openSUSE/open-build-service",
+    "default_branch": "master",
+    "master_branch": "master",
+  },
+
+  "created": false,
+  "deleted": true,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/openSUSE/open-build-service/compare/125534ee789d...000000000000",
+  "commits": [
+
+  ],
+  "head_commit": null
+}
+
+
+{
+  "ref": "refs/heads/master",
+  "before": "0199b3d30b116d84c5e638f39f321d2f394d6b85",
+  "after": "24568b7f0fbbf7b844b4ca89bd90483973662cd7",
+  "repository": {
+    "full_name": "openSUSE/open-build-service",
+    "default_branch": "master",
+    "stargazers": 788,
+    "master_branch": "master",
+    "organization": "openSUSE"
+  },
+
+  "created": false,
+  "deleted": false,
+  "forced": false,
+  "base_ref": null,
+  "compare": "https://github.com/openSUSE/open-build-service/compare/0199b3d30b11...24568b7f0fbb",
+  "commits": [
+    {
+      "id": "92987aced5dcd8b4f5d34ccdc4e393517c53ad50",
+      "tree_id": "28a0f32e53b89a6238f0330b54079b612eb0edbf",
+      "distinct": true,
+      "message": "Update puma to version 6.1.0",
+      "timestamp": "2023-02-13T06:30:15Z",
+      "url": "https://github.com/openSUSE/open-build-service/commit/92987aced5dcd8b4f5d34ccdc4e393517c53ad50",
+
+      "added": [
+        "src/api/vendor/cache/puma-6.1.0.gem"
+      ],
+      "removed": [
+        "src/api/vendor/cache/puma-6.0.2.gem"
+      ],
+      "modified": [
+        "src/api/Gemfile.lock"
+      ]
+    },
+    {
+      "id": "24568b7f0fbbf7b844b4ca89bd90483973662cd7",
+      "tree_id": "67bad774e5d707d460dd127224da9cc07810591b",
+      "distinct": true,
+      "message": "Merge pull request #13834 from openSUSE/depfu/update/srcapi/puma-6.1.0\n\n[src/api] Update puma: 6.0.2 → 6.1.0 (minor)",
+      "timestamp": "2023-02-13T08:45:52+01:00",
+      "url": "https://github.com/openSUSE/open-build-service/commit/24568b7f0fbbf7b844b4ca89bd90483973662cd7",
+
+      "added": [
+        "src/api/vendor/cache/puma-6.1.0.gem"
+      ],
+      "removed": [
+        "src/api/vendor/cache/puma-6.0.2.gem"
+      ],
+      "modified": [
+        "src/api/Gemfile.lock"
+      ]
+    }
+  ],
+  "head_commit": {
+    "id": "24568b7f0fbbf7b844b4ca89bd90483973662cd7",
+    "tree_id": "67bad774e5d707d460dd127224da9cc07810591b",
+    "distinct": true,
+    "message": "Merge pull request #13834 from openSUSE/depfu/update/srcapi/puma-6.1.0\n\n[src/api] Update puma: 6.0.2 → 6.1.0 (minor)",
+    "timestamp": "2023-02-13T08:45:52+01:00",
+    "url": "https://github.com/openSUSE/open-build-service/commit/24568b7f0fbbf7b844b4ca89bd90483973662cd7",
+
+    "added": [
+      "src/api/vendor/cache/puma-6.1.0.gem"
+    ],
+    "removed": [
+      "src/api/vendor/cache/puma-6.0.2.gem"
+    ],
+    "modified": [
+      "src/api/Gemfile.lock"
+    ]
+  }
+}
