@@ -34,7 +34,7 @@ module Workflows
     end
 
     def parse_workflow_configuration(workflow_configuration)
-      scm_organization_name, scm_repository_name = @workflow_run.payload.fetch(:target_repository_full_name).split('/')
+      scm_organization_name, scm_repository_name = @workflow_run.target_repository_full_name.split('/')
 
       # The PR number is only present in webhook events for pull requests, so we have a default value in case someone doesn't use
       # this correctly. Here, we cannot inform users about this since we're processing the whole workflows file
