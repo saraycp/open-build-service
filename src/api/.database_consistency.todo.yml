@@ -372,9 +372,6 @@ ChannelBinary:
   package:
     LengthConstraintChecker:
       enabled: false
-  supportstatus:
-    LengthConstraintChecker:
-      enabled: false
 ChannelBinaryList:
   channel_binaries:
     ForeignKeyCascadeChecker:
@@ -1496,9 +1493,6 @@ Package:
   scmsync:
     LengthConstraintChecker:
       enabled: false
-  token:
-    MissingIndexChecker:
-      enabled: false
 PackageIssue:
   id:
     PrimaryKeyTypeChecker:
@@ -2031,6 +2025,9 @@ WorkflowArtifactsPerStep:
     ForeignKeyChecker:
       enabled: false
 WorkflowRun:
+  hook_event:
+    ColumnPresenceChecker:
+      enabled: false
   id:
     PrimaryKeyTypeChecker:
       enabled: false
@@ -2040,13 +2037,14 @@ WorkflowRun:
   request_payload:
     LengthConstraintChecker:
       enabled: false
-    NullConstraintChecker:
-      enabled: false
   response_body:
     LengthConstraintChecker:
       enabled: false
   scm_status_reports:
     MissingIndexChecker:
+      enabled: false
+  scm_vendor:
+    ColumnPresenceChecker:
       enabled: false
   token:
     ForeignKeyChecker:
@@ -2054,10 +2052,3 @@ WorkflowRun:
   token_id:
     NullConstraintChecker:
       enabled: false
-  svm_vendor:
-    ColumnPresenceChecker:
-      enabled: false
-  hook_action:
-    ColumnPresenceChecker:
-      enabled: false
-
