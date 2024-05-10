@@ -48,6 +48,7 @@
           %mark.text-light.bg-staging.text-nowrap.text Staged
           in
           = link_to staging_project[:name], staging_project[:url]
+          = staging_status[:staging_package]
         - else
           %strong Waiting
           to be

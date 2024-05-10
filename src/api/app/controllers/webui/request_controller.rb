@@ -482,7 +482,7 @@ class Webui::RequestController < Webui::WebuiController
     @action = @actions.find(action_id)
   end
 
-  def staging_status(request, target_project)
+  def staging_status(request, target_project, target_package)
     return nil unless (staging_review = request.reviews.staging(target_project).last)
 
     if staging_review.for_project?
@@ -492,10 +492,12 @@ class Webui::RequestController < Webui::WebuiController
       }
     end
 
-    {
-      staging_project: staging_project,
-      target_project_staging_url: staging_workflow_path(request.target_project_name)
-    }
+    res = {
+            staging_project: staging_project,
+            target_project_staging_url: staging_workflow_path(request.target_project_name)
+          }
+
+    res.merge({ staging_package: target_package }) if Package.exists_by_project_and_name(target_project.name, target_package, follow_project_links: false)
   end
 
   def cache_diff_data
@@ -529,7 +531,7 @@ class Webui::RequestController < Webui::WebuiController
 
     target_project = Project.find_by_name(@bs_request.target_project_name)
     @request_reviews = @bs_request.reviews.for_non_staging_projects(target_project)
-    @staging_status = staging_status(@bs_request, target_project) if Staging::Workflow.find_by(project: target_project)
+    @staging_status = staging_status(@bs_request, target_project, @action.target_package) if Staging::Workflow.find_by(project: target_project)
 
     # Collecting all issues in a hash. Each key is the issue name and the value is a hash containing all the issue details.
     @issues = @action.webui_sourcediff({ diff_to_superseded: @diff_to_superseded, cacheonly: 1 }).reduce({}) { |accumulator, sourcediff| accumulator.merge(sourcediff.fetch('issues', {})) }
