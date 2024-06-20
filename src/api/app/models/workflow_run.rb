@@ -34,7 +34,7 @@ class WorkflowRun < ApplicationRecord
   validates :hook_event, inclusion: { in: ALLOWED_GITHUB_EVENTS, allow_nil: true, message: "unsupported '%{value}'" }, if: -> { scm_vendor == 'github' }
   validates :hook_event, inclusion: { in: ALLOWED_GITLAB_EVENTS, allow_nil: true, message: "unsupported '%{value}'" }, if: -> { scm_vendor == 'gitlab' }
   validates :hook_action, inclusion: { in: ALLOWED_PULL_REQUEST_ACTIONS, allow_nil: true, message: "unsupported '%{value}'" }, if: -> { scm_vendor == 'github' }
-  validates :hook_action, inclusion: { in: ALLOWED_MERGE_REQUEST_ACTIONS, allow_nil: true, message: "unsupported event acton '%{value}'" }, if: -> { scm_vendor == 'gitlab' }
+  validates :hook_action, inclusion: { in: ALLOWED_MERGE_REQUEST_ACTIONS, allow_nil: true, message: "unsupported event action '%{value}'" }, if: -> { scm_vendor == 'gitlab' }
   validate :validate_payload_is_json
 
   belongs_to :token, class_name: 'Token::Workflow', optional: true
