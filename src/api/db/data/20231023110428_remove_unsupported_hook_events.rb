@@ -2,7 +2,8 @@
 
 class RemoveUnsupportedHookEvents < ActiveRecord::Migration[7.0]
   def up
-    WorkflowRun.where.not(hook_event: [*SCMWebhookEventValidator::ALLOWED_GITHUB_AND_GITEA_EVENTS, *SCMWebhookEventValidator::ALLOWED_GITLAB_EVENTS]).destroy_all
+    allowed_events = [*WorkflowRun::ALLOWED_GITHUB_EVENTS, *WorkflowRun::ALLOWED_GITLAB_EVENTS, *WorkflowRun::ALLOWED_GITEA_EVENTS].uniq
+    WorkflowRun.where.not(hook_event: allowed_events).destroy_all
   end
 
   def down
