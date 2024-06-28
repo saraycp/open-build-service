@@ -26,7 +26,13 @@ class TriggerWorkflowController < ApplicationController
 
   def create
     authorize @token, :trigger?
-    create_workflow_run
+
+    @workflow_run = @token.workflow_runs.create!(request_headers: request_headers,
+                                                 request_payload: request.body.read,
+                                                 workflow_configuration_path: @token.workflow_configuration_path,
+                                                 workflow_configuration_url: @token.workflow_configuration_url,
+                                                 scm_vendor: scm_vendor,
+                                                 hook_event: hook_event)
 
     @token.executor.run_as do
       validation_errors = @token.call(workflow_run: @workflow_run)
@@ -62,13 +68,9 @@ class TriggerWorkflowController < ApplicationController
     raise Trigger::Errors::InvalidToken, 'Wrong token type. Please use workflow tokens only.' unless @token.is_a?(Token::Workflow)
   end
 
-  def create_workflow_run
-    request_headers = request.headers.to_h.keys.filter_map { |k| "#{k}: #{request.headers[k]}" if k.match?(/^HTTP_/) }.join("\n")
-    @workflow_run = @token.workflow_runs.create!(request_headers: request_headers,
-                                                 request_payload: request.body.read,
-                                                 workflow_configuration_path: @token.workflow_configuration_path,
-                                                 workflow_configuration_url: @token.workflow_configuration_url,
-                                                 scm_vendor: scm_vendor,
-                                                 hook_event: hook_event)
+  def request_headers
+    request.headers.to_h.keys.filter_map do |k|
+      "#{k}: #{request.headers[k]}" if k.match?(/^HTTP_/)
+    end.join("\n")
   end
 end
